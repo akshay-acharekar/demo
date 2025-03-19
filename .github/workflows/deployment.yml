@@ -23,10 +23,15 @@ jobs:
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 source: "index.html"
                 target: "/home/ubuntu"
-                # script: |
-                #   sudo cp index.html /var/www/html/index.htm
-                #   sudo systemctl restart nginx.service
+               
+            - name: Deploying Application
+              uses: appleboy/ssh-action@v0.1.4
+              with:
+                host: ${{ secrets.EC2_HOST }}
+                username: ${{ secrets.USERNAME }}
+                key: ${{ secrets.SSH_PRIVATE_KEY }}
+                script: |
+                  sudo mv index.html /var/www/html
+                  sudo systemctl restart nginx
 
-            - name: Deployment status
-              run: |
-                echo "Deployment successful"
+            - run: echo "Deployment successful"
