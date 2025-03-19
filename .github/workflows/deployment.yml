@@ -1,0 +1,35 @@
+name: GitHub Actions Demo
+run-name: Deployment initialized by ${{ github.actor }}
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Set up SSH
+              run: |
+                mkdir -p ~/.ssh/
+                echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+                chmod 600 ~/.ssh/id_rsa
+                ssh-keyscan -H ${{ secrets.EC2_HOST}} >> ~/.ssh/known_hosts
+
+            - name: Deploy to EC2
+              run: |
+                scp index.html ubuntu@${{ secrets.EC2_HOST }}:/var/www/html/index.html
+
+            - name: Restart Nginx
+              run: |
+                ssh ubuntu@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
+
+            - name: Deployment status
+              run: |
+                echo "Deployment successful"
