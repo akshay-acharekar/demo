@@ -15,19 +15,20 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v2
 
-            - name: Set up SSH
-              uses: shimataro/ssh-agent@v0.5.3
+            - name: SSH setup
+              uses: appleboy/ssh-action@v1
               with:
-                ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-                ec2-host: ${{ secrets.EC2_HOST }}
+                host: ${{ secrets.EC2_HOST }}
+                username: ${{ secrets.USERNAME }}
+                key: ${{ secrets.SSH_PRIVATE_KEY }}
                
             - name: Deploy to EC2
               run: |
-                scp index.html ubuntu@${{ secrets.EC2_HOST }}:/var/www/html/index.html
+                scp index.html ${{ secrets.USERNAME }}@${{ secrets.EC2_HOST }}:/var/www/html/index.html
 
             - name: Restart Nginx
               run: |
-                ssh ubuntu@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
+                ssh ${{ secrets.USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
 
             - name: Deployment status
               run: |
