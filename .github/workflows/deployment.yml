@@ -21,14 +21,9 @@ jobs:
                 host: ${{ secrets.EC2_HOST }}
                 username: ${{ secrets.USERNAME }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
-               
-            - name: Deploy to EC2
-              run: |
-                scp index.html ${{ secrets.USERNAME }}@${{ secrets.EC2_HOST }}:/var/www/html/index.html
-
-            - name: Restart Nginx
-              run: |
-                ssh ${{ secrets.USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
+                script: |
+                  scp index.html ${{ secrets.USERNAME }}@${{ secrets.EC2_HOST }}:/var/www/html/index.html
+                  ssh ${{ secrets.USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
 
             - name: Deployment status
               run: |
