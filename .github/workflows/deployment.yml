@@ -22,7 +22,7 @@ jobs:
                 username: ${{ secrets.USERNAME }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 source: "index.html"
-                target: "."
+                target: "/home/ubuntu"
                 # script: |
                 #   sudo cp index.html /var/www/html/index.htm
                 #   sudo systemctl restart nginx.service
