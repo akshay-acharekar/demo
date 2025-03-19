@@ -22,9 +22,10 @@ jobs:
                 username: ${{ secrets.USERNAME }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 source: "index.html"
-                target: "/var/www/html/index.html"
-                script: |
-                  sudo systemctl restart nginx.service
+                target: "."
+                # script: |
+                #   sudo cp index.html /var/www/html/index.htm
+                #   sudo systemctl restart nginx.service
 
             - name: Deployment status
               run: |
