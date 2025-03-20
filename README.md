@@ -119,4 +119,4 @@ Stored in **GitHub Secrets** for security:
 ---
 
 ## **Final Thoughts**
-This GitHub Actions workflow provides an **automated deployment pipeline** for updating a remote **EC2-hosted** Nginx web server. Let me know if you need enhancements or explanations! 🚀
+This GitHub Actions workflow provides an **automated deployment pipeline** for updating a remote **EC2-hosted** Nginx web server.
