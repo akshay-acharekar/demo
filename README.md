@@ -101,22 +101,5 @@ Stored in **GitHub Secrets** for security:
 
 ---
 
-### **Improvements & Best Practices**
-1. **Error Handling**  
-   - Add `continue-on-error: false` to steps where failures shouldn't be ignored.
-   - Use a `try-catch` block in the SSH script.
-
-2. **Automated Testing Before Deployment**
-   ```yaml
-   - name: Run Tests
-     run: npm test
-   ```
-   This ensures **only working code is deployed**.
-
-3. **Rolling Deployments**  
-   - Instead of immediately moving files, use **zero-downtime deployment strategies**.
-
----
-
 ## **Final Thoughts**
 This GitHub Actions workflow provides an **automated deployment pipeline** for updating a remote **EC2-hosted** Nginx web server.
